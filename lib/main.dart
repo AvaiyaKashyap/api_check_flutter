@@ -1,4 +1,5 @@
 // main.dart
+import 'package:api_check_flutter/data_entry.dart';
 import 'package:flutter/material.dart';
 import 'model.dart';
 import 'api_helper.dart';
@@ -9,12 +10,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(useMaterial3: true),
       home: Scaffold(
         appBar: AppBar(
           title: Text('Person List'),
         ),
         body: FutureBuilder<List<Person>>(
-          future: ApiHelper.fetchDataFromAPI('http://192.168.29.5:3000/api/fetchTable'), 
+          future: ApiHelper.fetchDataFromAPI(
+              'http://192.168.29.5:3000/api/fetchTable'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
@@ -24,6 +29,14 @@ class MyApp extends StatelessWidget {
               final persons = snapshot.data;
               return PersonList(persons: persons!);
             }
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Text("+"),
+          onPressed: () {
+            navigatorKey.currentState!.push(
+              MaterialPageRoute(builder: (context) => DataEntryPage()),
+            );
           },
         ),
       ),
@@ -55,6 +68,7 @@ class CardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      
       margin: EdgeInsets.all(16),
       child: Padding(
         padding: EdgeInsets.all(16),
@@ -69,3 +83,5 @@ class CardView extends StatelessWidget {
     );
   }
 }
+
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
