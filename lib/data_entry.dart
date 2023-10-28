@@ -21,6 +21,7 @@ class _DataEntryPageState extends State<DataEntryPage> {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
+            
             TextField(
               controller: nameController,
               decoration: InputDecoration(labelText: 'Name'),

@@ -1,7 +1,6 @@
 // main.dart
 import 'package:api_check_flutter/data_entry.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart'as http;
 import 'model.dart';
 import 'api_helper.dart';
 
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
               'http://192.168.29.5:3000/api/fetchTable'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Text("Error: ${snapshot.error}");
             } else {
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          child: Text("+"),
+          child: Icon(Icons.add),
           onPressed: () {
             navigatorKey.currentState!.push(
               MaterialPageRoute(builder: (context) => DataEntryPage()),
