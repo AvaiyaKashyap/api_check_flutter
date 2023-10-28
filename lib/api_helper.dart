@@ -16,4 +16,15 @@ class ApiHelper {
       throw Exception('Failed to load data from the API');
     }
   }
+
+       static Future<http.Response> deleteAlbum(int id) async {
+       final http.Response response = await http.delete(        
+       Uri.parse
+     ('http://192.168.29.5:3002/api/deleteCustomer/$id'),
+        headers: <String, String>{
+       'Content-Type': 'application/json; charset=UTF-8',
+         },
+       );
+       return response;
+      }
 }
